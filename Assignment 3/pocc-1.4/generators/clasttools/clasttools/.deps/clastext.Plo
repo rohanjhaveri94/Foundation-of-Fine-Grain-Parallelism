@@ -1,0 +1,185 @@
+clastext.lo: clastext.c /usr/include/stdc-predef.h \
+ ../clasttools/include/clasttools/config.h \
+ ../clasttools/include/clasttools/common.h \
+ ../clasttools/include/clasttools/config.h /usr/include/stdio.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-redhat-linux/6.4.1/include/stddef.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib/gcc/x86_64-redhat-linux/6.4.1/include/stdarg.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h /usr/include/sys/types.h /usr/include/time.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/byteswap-16.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/alloca.h \
+ /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
+ /usr/include/string.h /usr/include/xlocale.h /usr/include/bits/string.h \
+ /usr/include/bits/string2.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/getopt.h \
+ ../clasttools/include/clasttools/clastext.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/cloog.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/version.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/int.h \
+ /usr/include/assert.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/math/external/install/include/gmp.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/matrix.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/state.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/options.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/util.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/names.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/constraints.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/stride.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/domain.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/statement.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/block.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/loop.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/union_domain.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/input.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/program.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/clast.h \
+ /s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/pprint.h
+
+/usr/include/stdc-predef.h:
+
+../clasttools/include/clasttools/config.h:
+
+../clasttools/include/clasttools/common.h:
+
+../clasttools/include/clasttools/config.h:
+
+/usr/include/stdio.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/6.4.1/include/stddef.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/6.4.1/include/stdarg.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/alloca.h:
+
+/usr/include/bits/stdlib-bsearch.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/string.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/getopt.h:
+
+../clasttools/include/clasttools/clastext.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/cloog.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/version.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/int.h:
+
+/usr/include/assert.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/math/external/install/include/gmp.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/matrix.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/state.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/options.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/util.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/names.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/constraints.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/stride.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/domain.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/statement.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/block.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/loop.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/union_domain.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/input.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/program.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/clast.h:
+
+/s/chopin/b/grad/rohan94/Downloads/pocc-1.4/generators/install-cloog/include/cloog/pprint.h:

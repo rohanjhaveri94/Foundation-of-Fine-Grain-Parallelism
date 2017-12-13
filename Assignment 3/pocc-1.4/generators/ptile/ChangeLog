@@ -1,0 +1,429 @@
+2015-02-17  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* ptile/EvolveTile_wavefrontParallel.cpp,
+	* ptile/pocc_driver.c,
+	* ptile/GenericUtility.cpp,
+	* ptile/FullTileMaker.cpp,
+	* ptile/include/ptile/GenericUtility.hpp,
+	* ptile/TileLoopInserter.cpp: Update to new PAST API.
+
+2014-07-26  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* configure.ac: Bump to 0.2.1.
+	* ptile/AstGenerator.cpp,
+	* ptile/AstOptimizer.cpp,
+	* ptile/EvolveTile_outerParallel.cpp,
+	* ptile/EvolveTile_wavefrontParallel.cpp,
+	* ptile/FullTileMaker.cpp,
+	* ptile/GenericUtility.cpp,
+	* ptile/SecondLevelTiler.cpp,
+	* ptile/TileLoopInserter.cpp,
+	* ptile/pocc_driver.c: Update to new PAST API.
+
+2014-02-08  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+	This patch fixes numerous bugs found in PTile. The code is now
+	working for ISL 0.12 and CLooG 0.18.
+
+	* ptile/RSFME.cpp,
+	* ptile/Tiler.cpp,
+	* ptile/Polynomial.cpp,
+	* ptile/ExpressionLibrary.cpp,
+	* ptile/Expression.cpp,
+	* ptile/GenericUtility.cpp,
+	* ptile/ConvexHullFormer.cpp,
+	* ptile/TilingDriver.cpp,
+	* ptile/TileLoopInserter.cpp,
+	* ptile/ScoplibToExpressionConverter.cpp,
+	* ptile/Term.cpp: Fix numerous major bugs (memory bugs,
+	correctness bugs, incompatible/incorrect API for CLooG/ISL, ...).
+
+	* configure.ac: Add explicit link to ISL.
+
+2014-02-08  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* ptile/FullTileMaker.cpp,
+	* ptile/GenericUtility.cpp,
+	* ptile/TileLoopInserter.cpp,
+	* ptile/TilingDriver.cpp,
+	* ptile/pocc_driver.c: Fix major bugs in full tile separation
+	(was: duplicated node tree without deep copy).
+
+2014-02-05  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* configure.ac: Bump to ptile-0.2.0.
+
+	* ptile/FullTileMaker.cpp,
+	* ptile/pocc_driver.c: Restore marking of full tile loops.
+
+2011-07-25  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Bump to ptile-0.1.1.
+
+2011-07-25  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Fix iteration condition in the permutable
+	loop nest detection, causing that only a subset of outer loops
+	were considered (was: early exit instead of continue).
+	Fix a bug in the past_for loop type assignment.
+
+2011-07-21  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Add otl loop property when required.
+
+2011-07-21  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Fix a bug in the translation of parfor
+	loops.
+
+2011-07-20  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/AstGenerator.cpp,
+	* ptile/pocc_driver.c: Mark the type (point loop or tile loop) of
+	loops processed by ptile.
+
+2011-07-20  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Use the new PAST API to translate past_for
+	nodes into past_parfor.
+
+2011-07-14  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Check for piplib-hybrid before checking for candl.
+
+2011-07-12 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/GenericUtility.cpp : Erasing any metadata information that may be left
+2011-07-12 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/TileLoopInserter.cpp : Erasing any metadata information that may be left
+2011-07-12  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Fix a bug in the creation of tileable
+	components when statements without any surrounding loops are
+	encountered.
+
+2011-07-11 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/pocc_driver.c  : Not fusing is not possible when RSFME is enabled. Adding this check
+2011-07-11 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/TileLoopInserter.cpp : Earlier fix was causing segmentation fault during execution. Fixing that.
+2011-07-11 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/TileLoopInserter.cpp : Avoiding adding extra statements
+2011-07-11 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+        * ptile/TileLoopInserter.cpp : Fixing missing statements issue. e.g for jacobi-2d
+2011-07-11  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Don't process loop nest with a single loop
+	(was: can cause incorrect openmp loop to be generated, if the loop
+	is not stripminable)
+
+2011-07-11 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/TileLoopInserter.cpp : Fixing the cholesky bug. There was a typo
+2011-07-11 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/TileLoopInserter.cpp : Fixing cholesky infinite looping issue. Fast forwarding to the end of the chain when a cloogstmt is encountered
+2011-07-09 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/GenericUtility.cpp
+	* ptile/TileLoopInserter.cpp : Handling 'if' conditionals inside point loops in the no-fuse code path
+
+2011-07-08  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Add missing free.
+
+2011-07-08  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Fix a typo in NULL-terminated array
+	declaration (was: missing last element, possible segv).
+
+2011-07-06 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/TileLoopInserter.cpp : Fixing a bug: Appending the newly
+	formed node to the end of the chain rather than to the head
+
+2011-07-06 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c : Adding "otl" string in the metainfo for
+	otl loops
+
+2011-07-06 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c : By default, calling parametricallytile()
+	function with nofuse option
+
+2011-07-06 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	*       ptile/parametrictiling.cpp
+	*       ptile/GenericUtility.cpp
+	*       ptile/include/ptile/stamp-h1
+	*       ptile/include/ptile/config.h
+	*       ptile/include/ptile/config-h.in
+	*       ptile/include/ptile/GenericUtility.hpp
+	*       ptile/include/ptile/TileLoopInserter.hpp
+	*       ptile/TileLoopInserter.cpp : Fixing a bug: The fix is to fuse the statements in the case of otl, and not fuse in the case of non-otls
+
+2011-07-01 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+	* ptile/pocc_driver.c : Setting nofuse to 0 for now till it gets stabilized
+2011-06-29  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Add missing guard around pointer
+	dereference.
+
+2011-06-22 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/AstGenerator.cpp : Issue: Polynomials were being generated
+	even when the coefficients were zero. Fixed.
+
+2011-06-21 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/TileLoopInserter.cpp : Fix a bug - Traverse inside of the
+	affineguard to modify the bounds of point loops to insert bounds
+	corresponding to the tile loops
+
+2011-06-21 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/ExpressionLibrary.cpp : Fix a bug in the
+	ExpressionLibrary.cpp - The fix is, if the coefficients of an
+	iterator become undeterministic, equates some to 0. Applying
+	relaxation
+
+2011-06-21  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Fix a bug in embedding creation, when
+	facing arbitrary if conditionals in the middle of the permutable
+	partition.
+
+2011-06-20  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c,
+	* ptile/include/ptile/options.h,
+	* ptile/options.cpp: Add option 'quiet'.
+
+2011-06-17  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Backup statement substitutions, to allow
+	multiple re-entrance levels.
+
+2011-06-14  Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+        * ptile/tests/source/adi.c.flags: Changing the tile size variable
+	names as they have changed in the tiled code produced
+
+2011-06-14  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/parametrictiling.cpp,
+	* ptile/pocc_driver.c: Improve verbosity.
+
+2011-06-14  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/pocc_driver.c: Fix a bug in statement re-numbering, that
+	may mismatch the statement numbers in the control scop given as an
+	argument.
+
+2011-06-09  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* ptile/include/ptile/pocc_driver.h: Fix typo.
+
+2011-06-09  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Insert dependence on the irconverter module.
+
+	* ptile/pocc_driver.c,
+	* ptile/include/ptile/pocc_driver.h: New. Unit to drive parametric
+	tiling by separating permutable components in the program and
+	feeding them into the main PTile driver.
+	* ptile/Makefile.am: Update accordingly.
+
+	* ptile/include/ptile/options.h,
+	* ptile/options.cpp: Add options data_is_char, to inform about the
+	type of data stored in the scoplib fields (eg, iterators and
+	parameters name).
+
+	* ptile/include/ptile/PTile.hpp: Fix missing declarations.
+
+	* ChangeLog: Fix formatting.
+
+2011-06-03 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+	* ptile/include/ptile/Expression.hpp,
+      	* ptile/include/ptile/Term.hpp,
+ 	* ptile/include/ptile/PTile.hpp,
+        * ptile/include/ptile/ExpressionLibrary.hpp,
+        * ptile/Term.cpp,
+        * ptile/Polynomial.cpp,
+        * ptile/Makefile.am: Refactoring code
+
+2011-06-01 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+        * ptile/Polynomial.cpp: Creating a new file with the method
+	definitions
+
+        * ptile/include/ptile/Polynomial.hpp: Retaining only the method
+	declarations
+
+2011-06-01 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+        * ptile/ConvexHullFormer.cpp: Creating a new file with the method
+	  definitions
+	* ptile/include/ptile/ConvexHullFormer.hpp: Retaining only the
+	  method declarations
+
+2011-05-31 Sanket Tavarageri <tavarage@cse.ohio-state.edu>
+
+         * ptile/include/ptile/TileLoopInserter.hpp: Inserting an
+	 additional check for the RSFME bounds to make them tighter
+
+2011-05-23  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Use AC_SEARCH_LIBS instead of AC_CHECK_LIB.
+
+2011-05-19  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* Makefile.am: Remove useless files in the distribution.
+
+2011-05-18  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+	Change the project name from 'parametrictiling' to 'ptile'.
+
+	* configure.ac,
+	* config/parametrictiling.m4,
+	* src/parametrictiling.h,
+	* src/Makefile.am,
+	* Makefile.am,
+	* ptile/parametrictiling.cpp,
+	* ptile/xmalloc.c,
+	* ptile/include/ptile/error.h,
+	* ptile/include/ptile/AstOptimizer.hpp,
+	* ptile/include/ptile/PtileClasses.hpp,
+	* ptile/include/ptile/options.h,
+	* ptile/include/ptile/ext_pprint.h,
+	* ptile/include/ptile/TilingPostProcessor.hpp,
+	* ptile/include/ptile/parametrictiling.hpp,
+	* ptile/include/ptile/AstGenerator.hpp,
+	* ptile/include/ptile/InputReaderParser.hpp,
+	* ptile/include/ptile/FullTileMaker.hpp,
+	* ptile/include/ptile/GenericUtility.hpp,
+	* ptile/include/ptile/ConvexHullFormer.hpp,
+	* ptile/include/ptile/TilingDriver.hpp,
+	* ptile/include/ptile/TileLoopInserter.hpp,
+	* ptile/include/ptile/ScoplibToExpressionConverter.hpp,
+	* ptile/include/ptile/Term.hpp,
+	* ptile/include/ptile/RSFME.hpp,
+	* ptile/include/ptile/ParametricTilingClasses.hpp,
+	* ptile/include/ptile/PTile.hpp,
+	* ptile/include/ptile/Tiler.hpp,
+	* ptile/include/ptile/VariableExtractor.hpp,
+	* ptile/include/ptile/Polynomial.hpp,
+	* ptile/include/ptile/foo.h,
+	* ptile/include/ptile/ExpressionLibrary.hpp,
+	* ptile/include/ptile/Parallelizer.hpp,
+	* ptile/include/ptile/common.h,
+	* ptile/foo.c,
+	* ptile/ext_clast.c,
+	* ptile/Makefile.am,
+	* ptile/error.c,
+	* ptile/xstrdup.c,
+	* ptile/xstrerror.c,
+	* ptile/list.c,
+	* ptile/options.cpp,
+	* ptile/ext_pprint.c,
+
+2011-05-17  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* parametrictiling/include/parametrictiling/GenericUtility.hpp,
+	* parametrictiling/include/parametrictiling/Tiler.hpp: Rename 'w' to
+	'wPTile'.
+
+	* parametrictiling/options.cpp: Don't allocate the symbol table.
+
+2011-05-16  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+	This patch provides a usable parametric tiling capability, with
+	RSFME and w/o full-tile separation.
+
+	* parametrictiling/parametrictiling.cpp,
+	* parametrictiling/include/parametrictiling/AstOptimizer.hpp,
+	* parametrictiling/include/parametrictiling/options.h,
+	* parametrictiling/include/parametrictiling/parametrictiling.hpp,
+	* parametrictiling/include/parametrictiling/AstGenerator.hpp,
+	* parametrictiling/include/parametrictiling/InputReaderParser.hpp,
+	* parametrictiling/include/parametrictiling/FullTileMaker.hpp,
+	* parametrictiling/include/parametrictiling/GenericUtility.hpp,
+	* parametrictiling/include/parametrictiling/ConvexHullFormer.hpp,
+	* parametrictiling/include/parametrictiling/TilingDriver.hpp,
+	* parametrictiling/include/parametrictiling/TileLoopInserter.hpp,
+	* parametrictiling/include/parametrictiling/ParametricTilingClasses.hpp,
+	* parametrictiling/include/parametrictiling/Tiler.hpp,
+	* parametrictiling/include/parametrictiling/Polynomial.hpp,
+	* parametrictiling/Makefile.am,
+	* parametrictiling/options.cpp: Upgrade the code to PAST. Comment
+	out non-essential features. Provide driver.
+
+2011-05-13  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* bootstrap.sh,
+	* configure.ac,
+	* parametrictiling/Makefile.am: Upgrade the build process.
+
+	* parametrictiling/parametrictiling.cpp: Refactor into...
+
+	* parametrictiling/include/parametrictiling/AstOptimizer.hpp,
+	* parametrictiling/include/parametrictiling/TilingPostProcessor.hpp,
+	* parametrictiling/include/parametrictiling/parametrictiling.hpp,
+	* parametrictiling/include/parametrictiling/AstGenerator.hpp,
+	* parametrictiling/include/parametrictiling/InputReaderParser.hpp,
+	* parametrictiling/include/parametrictiling/FullTileMaker.hpp,
+	* parametrictiling/include/parametrictiling/GenericUtility.hpp,
+	* parametrictiling/include/parametrictiling/TilingDriver.hpp,
+	* parametrictiling/include/parametrictiling/ConvexHullFormer.hpp,
+	* parametrictiling/include/parametrictiling/TileLoopInserter.hpp,
+	* parametrictiling/include/parametrictiling/ScoplibToExpressionConverter.hpp,
+	* parametrictiling/include/parametrictiling/Term.hpp,
+	* parametrictiling/include/parametrictiling/RSFME.hpp,
+	* parametrictiling/include/parametrictiling/ParametricTilingClasses.hpp,
+	* parametrictiling/include/parametrictiling/Tiler.hpp,
+	* parametrictiling/include/parametrictiling/VariableExtractor.hpp,
+	* parametrictiling/include/parametrictiling/Polynomial.hpp,
+	* parametrictiling/include/parametrictiling/ExpressionLibrary.hpp:...
+	these. Create 1 HPP file per class.
+
+
+2010-10-06  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* parametrictiling/include/parametrictiling/ext_clast.h,
+	* parametrictiling/ext_clast.c: New. Unit to support the extended
+	clast representation with modified expression
+	grammar. ParametricTiling now produces an ext_clast tree, given a
+	clast tree passed in argument for the untiled loop body.
+
+	* parametrictiling/Makefile.am: Update accordingly.
+
+	* parametrictiling/include/parametrictiling/parametrictiling.hpp:
+	Update to include ext_clast.h.
+
+	* configure.ac: Fix missing AC_PROG_CXX
+
+2010-09-10  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* tests/Makefile.am,
+	* tests/empty.test,
+	* tests/checker.sh,
+	* configure.ac,
+	* AUTHORS,
+	* config/parametrictiling.m4,
+	* doc/Makefile.am,
+	* bootstrap.sh,
+	* ChangeLog,
+	* src/parametrictiling.c,
+	* src/parametrictiling.h,
+	* src/Makefile.am,
+	* COPYING,
+	* Makefile.am,
+	* NEWS,
+	* README,
+	* parametrictiling/parametrictiling.c,
+	* parametrictiling/parametrictiling.cpp,
+	* parametrictiling/xmalloc.c,
+	* parametrictiling/include/parametrictiling/error.h,
+	* parametrictiling/include/parametrictiling/list.h,
+	* parametrictiling/include/parametrictiling/parametrictiling.hpp,
+	* parametrictiling/include/parametrictiling/foo.h,
+	* parametrictiling/include/parametrictiling/common.h,
+	* parametrictiling/foo.c,
+	* parametrictiling/Makefile.am,
+	* parametrictiling/error.c,
+	* parametrictiling/xstrdup.c,
+	* parametrictiling/xstrerror.c,
+	* parametrictiling/list.c: New. Initial checkin of the project.

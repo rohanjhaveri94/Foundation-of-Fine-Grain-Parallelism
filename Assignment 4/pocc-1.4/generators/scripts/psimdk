@@ -1,0 +1,171 @@
+#! /bin/sh
+
+# $1 : output file name
+# $2 : number of full tiles
+# $3 : vector isa ("sse","avx", or "N/A")
+# $4 : data type ("float" or "double")
+# $5 : input file name (used when generating compile script)
+# $6 : generate polybench compatible compile script? ("1" for yes, "0" for no)
+
+
+echo "[PoCC] Insert PSimdKzer includes";
+
+
+echo '#include "simd_func.h"' > .head;
+for i in `seq $2`; do
+  j=$(($i-1))
+  echo "#include \"simd_proto_${j}.h\"" >> .head
+done
+cat $1 > .tail
+
+cat .head .tail > $1;
+rm -f .head .tail;
+
+rm -f simd_func.h
+visa=$3
+datatype=$4
+includefile=`echo $5 | sed -e 's/\.c$/.h/g'`
+
+echo '#ifndef SIMD_FUNC_H' >> simd_func.h
+echo '# define SIMD_FUNC_H' >> simd_func.h
+
+echo '' >> simd_func.h
+if [ "x$6" = "x1" ]; then
+  echo "#include \"${includefile}\"" >> simd_func.h
+fi
+
+
+defineops=0
+if [ "$visa" = "sse" ]; then
+  visapref="_mm"
+  defineops=1
+fi
+if [ "$visa" = "avx" ]; then
+  visapref="_mm256"
+  defineops=1
+fi
+if [ "$datatype" = "float" ]; then
+  typesuff="ps"
+fi
+if [ "$datatype" = "double" ]; then
+  typesuff="pd"
+fi
+
+if [ $defineops = 1 ]; then
+
+echo '#include <pmmintrin.h>' >> simd_func.h
+echo '#include <emmintrin.h>' >> simd_func.h
+echo '#include <xmmintrin.h>' >> simd_func.h
+echo '#include <mmintrin.h>' >> simd_func.h
+echo '#include <smmintrin.h>' >> simd_func.h
+echo '#include <immintrin.h>' >> simd_func.h
+echo '' >> simd_func.h
+
+echo "#define PSIMDK_VSTORE ${visapref}_storeu_${typesuff}" >> simd_func.h
+echo "#define PSIMDK_VLOAD  ${visapref}_loadu_${typesuff}" >> simd_func.h
+echo "#define PSIMDK_VADD   ${visapref}_add_${typesuff} " >> simd_func.h
+echo "#define PSIMDK_VMUL   ${visapref}_mul_${typesuff}" >> simd_func.h
+echo "#define PSIMDK_VSUB   ${visapref}_sub_${typesuff}" >> simd_func.h
+echo "#define PSIMDK_VDIV   ${visapref}_div_${typesuff}" >> simd_func.h
+echo "#define PSIMDK_VSQRT  ${visapref}_sqrt_${typesuff}" >> simd_func.h
+
+if [ "$visa" = "avx" ]; then
+  if [ "$datatype" = "float" ]; then
+    echo "#define PSIMDK_VSPLAT ${visapref}_broadcast_ss" >> simd_func.h
+  fi
+  if [ "$datatype" = "double" ]; then
+    echo "#define PSIMDK_VSPLAT ${visapref}_broadcast_sd" >> simd_func.h
+  fi
+fi
+if [ "$visa" = "sse" ]; then
+  echo "#define PSIMDK_VSPLAT ${visapref}_set1_${typesuff}" >> simd_func.h
+fi
+
+fi
+
+#echo '# endif' >> simd_func.h
+echo '' >> simd_func.h
+
+echo "#ifdef DATA_TYPE" >> simd_func.h
+echo "#  undef  DATA_TYPE" >> simd_func.h
+echo "#endif"  >> simd_func.h
+echo "#define DATA_TYPE ${datatype}"  >> simd_func.h
+echo '' >> simd_func.h
+
+echo "#ifdef DATA_PRINTF_MODIFIER" >> simd_func.h
+echo "#  undef  DATA_PRINTF_MODIFIER" >> simd_func.h
+echo "#endif"  >> simd_func.h
+
+if [ "$datatype" = "float" ]; then
+  echo '#define DATA_PRINTF_MODIFIER "%0.2f "' >> simd_func.h
+  echo '#define ABS fabsf ' >> simd_func.h
+fi
+if [ "$datatype" = "double" ]; then
+  echo '#define DATA_PRINTF_MODIFIER "%0.2lf "' >> simd_func.h
+  echo '#define ABS fabs ' >> simd_func.h
+fi
+
+echo '' >> simd_func.h
+
+
+echo '' >> simd_func.h
+echo '#define DECL_ARRAY_1D(x) x[_PB_ARRAY_DIM_1_## x]' >> simd_func.h
+echo '#define DECL_ARRAY_2D(x) x[_PB_ARRAY_DIM_2_## x][_PB_ARRAY_DIM_1_## x]' >> simd_func.h
+echo '#define DECL_ARRAY_3D(x) x[_PB_ARRAY_DIM_3_## x][_PB_ARRAY_DIM_2_## x][_PB_ARRAY_DIM_1_## x]' >> simd_func.h
+echo '#define DECL_ARRAY_4D(x) x[_PB_ARRAY_DIM_4_## x][_PB_ARRAY_DIM_3_## x][_PB_ARRAY_DIM_2_## x][_PB_ARRAY_DIM_1_## x]' >> simd_func.h
+echo '' >> simd_func.h
+
+echo '#ifndef min' >> simd_func.h
+echo '#  define min(x,y) (((x)<=(y))?(x):(y))' >> simd_func.h
+echo '#endif' >> simd_func.h
+echo '' >> simd_func.h
+echo '#ifndef max' >> simd_func.h
+echo '#  define max(x,y) (((x)>=(y))?(x):(y))' >> simd_func.h
+echo '#endif' >> simd_func.h
+
+echo '' >> simd_func.h
+echo '#define ULONG unsigned long' >> simd_func.h
+echo '' >> simd_func.h
+
+echo '#endif // !SIMD_FUNC_H' >> simd_func.h
+
+
+if [ "x$6" = "x1" ]; then
+  echo "[PoCC] Generate Polybench compilation script (compile-codelet) ";
+
+  rm -rf compile-codelet
+  echo 'CC=$1' >> compile-codelet
+  exefile=`echo $1 | sed -e 's/\.c$/.exe/g'`
+  files="polybench.c $1 "
+  for i in `seq $2`; do
+    j=$(($i-1))
+    files="$files codelet_${j}.c " 
+  done
+  echo 'mode=$3' >> compile-codelet
+  echo 'ds=$4' >> compile-codelet
+  echo "optionsgcc=\"-I. -O3 -lm -fopenmp  -msse4 \"" >> compile-codelet
+  echo "optionsicc=\"-I. -fast -parallel -openmp -xssse3 -xavx \"" >> compile-codelet
+  echo 'if [ "$CC" = "gcc" ]; then' >> compile-codelet
+  echo 'options=$optionsgcc' >> compile-codelet
+  echo 'fi' >> compile-codelet
+  echo 'if [ "$CC" = "icc" ]; then' >> compile-codelet
+  echo 'options=$optionsicc' >> compile-codelet
+  echo 'fi' >> compile-codelet
+  echo 't=$2' >> compile-codelet
+  echo 'tsizes=`cat tile.sizes`' >> compile-codelet
+  echo 'for i in $tsizes; do' >> compile-codelet
+  echo '  options="$options -DT1c${t}=${i}.0"' >> compile-codelet
+  echo '  t=$(($t+1))' >> compile-codelet
+  echo 'done' >> compile-codelet
+  echo 'if [ "$mode" = "check" ]; then' >> compile-codelet
+  echo '  options="$options -DCHECK "' >> compile-codelet
+  echo 'fi' >> compile-codelet
+  echo 'if [ "$mode" = "time" ]; then' >> compile-codelet
+  echo '  options="$options -DPOLYBENCH_TIME -DPOLYBENCH_GFLOPS "' >> compile-codelet
+  echo 'fi' >> compile-codelet
+
+  echo "com=\"\$CC  $files \$options -o $exefile\" " >> compile-codelet
+  echo "echo \$com" >> compile-codelet
+  echo "\$com" >> compile-codelet
+  chmod a+x compile-codelet
+fi

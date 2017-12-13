@@ -1,0 +1,7 @@
+#Exercise 3:
+#Question 1:  
+print "Iteration Domain of c0 & c1";
+ID_c0_c1 := [_PB_NI,_PB_NJ] -> {ID_c0_c1[i,j] : 0<=i<=floord((_PB_NI-1),4) and 0<=j<=floord((_PB_NJ-1),4)};
+ID_c0_c1;
+print "Cardinality of c0 & c1";
+card ID_c0_c1;

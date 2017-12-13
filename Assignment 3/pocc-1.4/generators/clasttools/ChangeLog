@@ -1,0 +1,157 @@
+2015-02-19  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* clasttools/clast2past.c: Systematically encapsulate loop body in
+	a basic block.
+
+2015-02-17  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* clasttools/clast2past.c: Update to comply with new PAST symbol API.
+
+2014-07-26  Louis-Noel Pouchet  <pouchet@cs.ucla.edu>
+
+	* configure.ac: Bump to 0.2.2.
+	* clasttools/clast2past.c: Update to new PAST API.
+
+2012-03-12  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Bump to 0.2.1.
+	* clasttools/pprint.c: Update to comply with CLooG 0.17 new defs.
+
+2011-07-29  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/clast2past.c: Support infinite loops.
+
+2011-07-16  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/clast2past.c: Embed 'floating' stmt_ass into
+	past_statement nodes.
+
+2011-05-24  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Use AC_SEARCH_LIBS instead of AC_CHECK_LIB.
+
+2011-05-13  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/clast2past.c: Fix a bug in the past_root construction.
+
+2011-05-13  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/clast2past.c: Update to match latest PAST API changes.
+
+2011-05-13  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/clast2past.c,
+	* clasttools/include/clasttools/clast2past.h: Update to match latest
+	PAST changes.
+
+2011-05-11  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Bump to 0.2.0.
+
+2011-05-10  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+	This patch provides a CLAST to PAST converter.
+
+	* configure.ac: Update to link with PAST.
+
+	* clasttools/clast2past.c,
+	* clasttools/include/clasttools/clast2past.h: New. Unit to convert
+	CLAST to PAST.
+
+	* clasttools/Makefile.am: Update accordingly.
+
+2010-12-07  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/utils.c,
+	* clasttools/include/clasttools/pprint.h,
+	* clasttools/include/clasttools/utils.h,
+	* clasttools/include/clasttools/clastext.h,
+	* clasttools/clastext.c,
+	* clasttools/pprint.c: Update to use the latest version of CLooG.
+
+2010-05-27  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/pprint.c: Generate extra-parenthesis around the
+	substitution expressions.
+
+2010-02-24  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+	This patch introduces the clast_user_stmt_extended node. It
+	mirrors the existing clast_user_stmt, but adds a scop_statement_id
+	field which is read during pretty-print (ex: the '1' in 'S1(i)'),
+	instead of CloogStatement->number. This is to enable the
+	duplication of textual statements in the code.
+
+	* clasttools/utils.c,
+	* clasttools/include/clasttools/clastext.h,
+	* clasttools/clastext.c,
+	* clasttools/pprint.c: Support clast_user_stmt_extended.
+
+2010-02-05  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/include/clasttools/pprint.h,
+	* clasttools/pprint.c: Add function clasttols_clast_pprint_debug,
+	which prints comments above the parfor and vectorfor loops.
+
+	* clasttools/include/clasttools/utils.h,
+	* clasttools/utils.c: Add function clasttools_utils_get_loops_at_level
+
+2010-01-28  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+	This patch provides a series of convenience functions to
+	clasttools:
+	- clasttools_utils_number_parfor
+	- clasttools_utils_number_loops
+	- clasttools_utils_get_parent
+	- clasttools_utils_get_pointer
+	- clasttools_utils_contains_loops
+	- clasttools_utils_get_all_inner_loops
+	- clasttools_utils_dup_expr
+	- clasttools_utils_dup_stmt
+
+	* clasttools/include/clasttools/utils.h,
+	* clasttools/utils.c: New. Unit containing convenience functions
+	for CLAST manipulation.
+
+	* clasttools/Makefile.am: Update accordingly.
+
+	* clasttools/clastext.c: Fix a bug in clast_parfor and
+	clast_vectorfor constructors.
+
+2010-01-27  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clasttools/include/clasttools/clastext.h,
+	* clasttools/clastext.c,
+	* clasttools/pprint.c: Introduce and manage clast_vectorfor node
+	type, a mirror of a clast_for node.
+
+2010-01-26  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* tests/Makefile.am,
+	* tests/empty.test,
+	* tests/checker.sh,
+	* configure.ac,
+	* COPYING.LESSER,
+	* AUTHORS,
+	* config/clasttools.m4,
+	* doc/Makefile.am,
+	* bootstrap.sh,
+	* ChangeLog,
+	* clasttools/xmalloc.c,
+	* clasttools/include/clasttools/error.h,
+	* clasttools/include/clasttools/pprint.h,
+	* clasttools/include/clasttools/foo.h,
+	* clasttools/include/clasttools/clastext.h,
+	* clasttools/include/clasttools/common.h,
+	* clasttools/foo.c,
+	* clasttools/clastext.c,
+	* clasttools/Makefile.am,
+	* clasttools/error.c,
+	* clasttools/xstrdup.c,
+	* clasttools/xstrerror.c,
+	* clasttools/pprint.c,
+	* src/clasttools.c,
+	* src/Makefile.am,
+	* src/clasttools.h,
+	* Makefile.am,
+	* NEWS,
+	* README: New. Initial checkin of the project.
+
+

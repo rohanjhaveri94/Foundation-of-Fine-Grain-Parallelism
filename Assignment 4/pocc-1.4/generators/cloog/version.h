@@ -1,0 +1,1 @@
+#define CLOOG_HEAD "0.18.2-10-g22643c9"

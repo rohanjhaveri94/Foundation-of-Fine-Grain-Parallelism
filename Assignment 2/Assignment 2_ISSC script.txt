@@ -1,0 +1,192 @@
+ #for (t = 0; t < TimeSteps; ++t) {
+#  for (i1 = 1; i1 < N-1; ++i1)
+#    for (j1 = 1; j1 < N-1; ++j1)
+#R:    B[i1][j1] = 0.2 * (A[i1][j1-1] + A[i1][j1] + A[i1][j1+1] + A[i1+1][j1] + A[i1-1][j1]);
+#  for (i2 = 1; i2 < N-1; ++i2)
+#    for (j2 = 1; j2 < N-1; ++j2)
+#S:    A[i2][j2] = 0.2 * (B[i2][j2-1] + B[i2][j2] + B[i2][j2+1] + B[i2+1][j2] + B[i2-1][j2]);
+#}
+#
+print "********************************************************************************";
+#Question 1: Write the iteration domain of R, and of S. Count the number of points in each.
+print "Iteration Domain of R:";
+DS_R := [TimeSteps,N] -> {DS_R[t,i1,j1] : 0<=t<TimeSteps and 0<i1<N-1 and 0<j1<N-1};
+DS_R;
+print "Cardinality of R:";
+card DS_R;
+print "Iteration Domain of S:";
+DS_S := [TimeSteps,N] -> {DS_S[t,i2,j2] : 0<=t<TimeSteps and 0<i2<N-1 and 0<j2<N-1};
+print "Cardinality of S:";
+DS_S;
+card DS_S;
+print "********************************************************************************";
+#Question 2: Write each access function (12 total) for the program.
+print "Access Function of R:";
+F_W_R_B11 := [TimeSteps,N] -> { DS_R[t,i1,j1] -> B[x1,x2] : x1 = i1 and x2 = j1};
+F_R_A10  := [TimeSteps,N] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1-1};
+F_R_A11  := [TimeSteps,N] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1};
+F_R_A12  := [TimeSteps,N] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1+1};
+F_R_A21  := [TimeSteps,N] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1+1 and x2 = j1};
+F_R_A01  := [TimeSteps,N] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1-1 and x2 = j1};
+F_W_R_B11;
+F_R_A10; 
+F_R_A11;
+F_R_A12;
+F_R_A21; 
+F_R_A01;
+print "Access Function of S:";
+F_S_B11  :=  [TimeSteps,N] -> { DS_S[t,i2,j2] -> B[x1,x2] : x1 = i2 and x2 = j2};
+F_S_B12  :=  [TimeSteps,N] -> { DS_S[t,i2,j2] -> B[x1,x2] : x1 = i2 and x2 = j2+1};
+F_W_S_A11 :=  [TimeSteps,N] -> {DS_S[t,i2,j2] -> A[x1,x2] : x1 = i2 and x2 = j2};
+F_S_B10  :=  [TimeSteps,N] -> {DS_S[t,i2,j2] -> B[x1,x2] : x1 = i2 and x2 = j2-1};
+F_S_B21  :=  [TimeSteps,N] -> { DS_S[t,i2,j2] -> B[x1,x2] : x1 = i2+1 and x2 = j2};
+F_S_B01  :=  [TimeSteps,N] -> { DS_S[t,i2,j2] -> B[x1,x2] : x1 = i2-1 and x2 = j2}; 
+F_W_S_A11;
+F_S_B10;
+F_S_B11; 
+F_S_B12;
+F_S_B21;
+F_S_B01;
+print "********************************************************************************";
+#Question 3: Write the union of all access functions on the array A.
+print "Union of Access functions on A";
+F_R_A := F_R_A10 + F_R_A11 + F_R_A12 + F_R_A21 + F_R_A01;
+F_W_A := F_W_S_A11;
+F_A := F_R_A + F_W_A;
+F_A;
+print "********************************************************************************";
+#Question 4: Write the union of all access functions on the array B.
+print "Union of Access functions on B";
+F_S_B := F_S_B10 + F_S_B11 + F_S_B12 + F_S_B21 + F_S_B01;
+F_W_B := F_W_R_B11;
+F_B := F_S_B + F_W_B;
+F_B;
+print "********************************************************************************";
+#Question 5: Write the data space of A, i.e., the set describing all cells of the array A being 
+#referenced over the execution of the program.
+print "Data Space of A";
+DS_A := F_R_A10(DS_R) + F_R_A11(DS_R) + F_R_A12(DS_R) + F_R_A21(DS_R) + F_R_A01(DS_R) + F_W_S_A11(DS_S); 
+DS_A;
+print "********************************************************************************";
+# Ouestion 6: Write the data space of B.
+print "Data Space of B";
+DS_B := F_S_B10(DS_S) + F_S_B11(DS_S) + F_S_B12(DS_S) + F_S_B21(DS_S) + F_S_B01(DS_S) + F_W_R_B11(DS_R);
+DS_B;
+print "********************************************************************************";
+# Question 7: Count the number of points in the data space of A, and B.
+print "number of points in A";
+card DS_A;
+print "number of points in B";
+card DS_B;
+print "********************************************************************************";
+# Question 8: Count the sum for R and S of the number of executed statement instances (hint: make the 
+#union of iteration domains first, then count, as ISCC does not provide arithmetic operations such as 
+#+, *, etc. on integers)
+print "Combined Data space:";
+DS := DS_R + DS_S;
+DS;
+print "The sum for R and S of number of executed statement instances:";
+card DS;
+print "********************************************************************************";
+#Question 9: Count how many times each data element of A is being accessed by the program. Note: this 
+#is a more difficult question, not covered in class.
+F_R_A10x  := [TimeSteps,N,c,d] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1-1 and x1 = c and x2 = d};
+F_R_A11x  := [TimeSteps,N,c,d] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1 and x1 = c and x2 = d };
+F_R_A12x  := [TimeSteps,N,c,d] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1+1 and x1 = c and x2 = d};
+F_R_A21x  := [TimeSteps,N,c,d] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1+1 and x2 = j1 and x1 = c and x2 = d};
+F_R_A01x  := [TimeSteps,N,c,d] -> { DS_R[t,i1,j1] -> A[x1,x2] : x1 = i1-1 and x2 = j1 and x1 = c and x2 = d};
+F_W_S_A11x :=  [TimeSteps,N,c,d] -> {DS_S[t,i2,j2] -> A[x1,x2] : x1 = i2 and x2 = j2 and x1 = c and x2 = d};
+print "paramaterized access functions of A in R:";
+F_R_A10x;
+F_R_A11x;
+F_R_A12x; 
+F_R_A21x; 
+F_R_A01x; 
+F_A_Rx := F_R_A10x + F_R_A11x + F_R_A12x + F_R_A21x + F_R_A01x;
+print "Union of paramaterized access functionsof A in R";
+F_A_Rx;
+DS_Rx := F_A_Rx*(DS_R);
+DS_Sx := F_W_S_A11x*(DS_S);
+DS_x := DS_Rx + DS_Sx;
+DS_x;
+print "number of times data element of A being accessed by the program";
+card (dom DS_x);
+print "********************************************************************************";
+#Question 10: Compute the data space DS_R_A_j1 of A for one arbitrary execution of the j1 loop, that is 
+#the parametric slice fixing t, i1, i2, j2 to a newly introduced parameter. Don't forget to update all 
+#your data structures -- iteration domains and access functions -- to capture the newly introduced 
+#parameters.
+DS_R_Aj1x := [TimeSteps,N,c,d] -> {DS_R_Aj1[t,i1,j1] : 0<=t<TimeSteps and 0<i1<N-1 and 0<j1<N-1 and t = c and i1 = d};
+print "sliced iteration domain for A in R in j1 dimension"; 
+DS_R_Aj1x;
+print "Elements in DS_R_Aj1x"; 
+card DS_R_Aj1x;
+print "Access function for sliced iteration domain";
+F_R_A10j1  := [TimeSteps,N] -> { DS_R_Aj1[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1-1};
+F_R_A11j1  := [TimeSteps,N] -> { DS_R_Aj1[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1};
+F_R_A12j1  := [TimeSteps,N] -> { DS_R_Aj1[t,i1,j1] -> A[x1,x2] : x1 = i1 and x2 = j1+1};
+F_R_A21j1  := [TimeSteps,N] -> { DS_R_Aj1[t,i1,j1] -> A[x1,x2] : x1 = i1+1 and x2 = j1};
+F_R_A01j1  := [TimeSteps,N] -> { DS_R_Aj1[t,i1,j1] -> A[x1,x2] : x1 = i1-1 and x2 = j1};
+F_R_A10j1; 
+F_R_A11j1;
+F_R_A12j1;
+F_R_A21j1; 
+F_R_A01j1;
+F_R_A := F_R_A10j1 + F_R_A11j1 + F_R_A12j1 + F_R_A21j1 + F_R_A01j1;
+print "union of access functions";
+F_R_A;
+print "Data space of A for one arbitrary execution of the j1 loop";
+DS_R_A_j1 := F_R_A(DS_R_Aj1x);
+DS_R_A_j1;
+print "********************************************************************************";
+#Question 11: Generate the code scanning DS_R_A_j1.
+print "code for data space of A for one arbitrary execution of the j1 loop";
+codegen DS_R_A_j1;
+print "********************************************************************************";
+#Question 12: Count DS_R_A_j1. Compute the size of A_local in each dimension (observation: you should 
+#compute the size based on the rectangular hull of DS_R_A_j1)
+print "number of elements is DS_R_A_j1";
+card DS_R_A_j1;
+print "The size of A_local in each dimension would be N,N";
+print "********************************************************************************";
+#Question 13: Compute DS_R_B_j1 (same as DS_R_A_j1 but for the B array), and compute the size of B_local 
+#as above.
+DS_R_Bj1 := [TimeSteps,N,c,d] -> {DS_R_Bj1[t,i1,j1] : 0<=t<TimeSteps and 0<i1<N-1 and 0<j1<N-1 and t = c and i1 = d};
+print "Data space of B for one arbitrary execution of the j1 loop";
+DS_R_Bj1;
+print "number of elements is DS_R_B_j1";
+card DS_R_Bj1;
+F_W_R_B11j1 := [TimeSteps,N] -> { DS_R_Bj1[t,i1,j1] -> B[x1,x2] : x1 = i1 and x2 = j1};
+print "access function for B in R for one arbitrary execution of the j1 loop";
+F_W_R_B11j1;
+DS_R_Bj1_F := F_W_R_B11j1(DS_R_Bj1);
+print "Dataspace of B in R for one execution of j1 loop"; 
+DS_R_Bj1_F;
+print "number of elements in DS_R_Bj1_F";
+card DS_R_Bj1_F;
+print "The size of B_local in each dimension would be N,N";
+print "********************************************************************************";
+#Question 14: Generate the loop code that copies data from A[x][y] to A_local[a][b] in a correct 
+#manner, i.e., not exceeding the size of A_local but still copying exactly the data needed for this 
+#particular execution of the j1 loop. Hint 1: this is very related to question 11. Hint 2: the code for 
+#the statement S(i,j) you will use is up to you.
+print "iteration domain for A_local";
+DS_Alocal := [TimeSteps,N] -> {Alocal[t,i1,i,j] : 0 <= t< TimeSteps and 1 <= i1 < N-1 and i1-1 <= i <= i1+1 and 0 <= j <= N-1};
+DS_Alocal;
+print "Codegen for copying A into Alocal";
+codegen DS_Alocal; 
+print "Here Alocal(c0,c1,c2,c3) implies A_local[c2][c3] = A[c2][c3]"; 
+print "********************************************************************************";
+#Question 15: Generate the loop code that copies data from B_local[x][y] to B[a][b] in a correct 
+#manner.
+DS_Blocal := [TimeSteps,N] -> {Blocal[t,i1,i] : 0 <= t< TimeSteps and 1 <= i1 < N-1 and 1 <= i < N-1};
+print "iteration domain for B_local";
+DS_Blocal;
+print "Codegen for copying B from Blocal";
+codegen DS_Blocal;
+print "Here Blocal(c0,c1,c2) implies B[c1][c2] = B_local[c1][c2]";
+print "********************************************************************************";
+#Question 16: print the final statement body for R to be used (where all ?? are replaced by their 
+#correct value)
+print "B_local[i1][j1] = 0.2 * (A_local[i1][j1-1] + A_local[i1][j1] + A_local[i1][j1+1] + A_local[i1+1][j1] + A_local[i1-1][j1])";
+print "********************************************************************************";

@@ -1,0 +1,57 @@
+2011-05-24  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* configure.ac: Use AC_SEARCH_LIBS instead of AC_CHECK_LIB.
+
+2010-12-07  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clastannotation/include/clastannotation/annotate.h: Update to
+	support latest version of CLooG.
+
+2010-08-31  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* clastannotation/include/clastannotation/annotate.h,
+	* clastannotation/annotate.c: New. Unit to translate parallel
+	clast_for into clast_parfor.
+
+	* clastannotation/Makefile.am: Update accordingly.
+
+	* configure.ac: Link with required dependencies (candl, cloog,
+	clasttools, scoplib, scoptools).
+
+2010-08-31  Louis-Noel Pouchet  <pouchet@cse.ohio-state.edu>
+
+	* AUTHORS,
+	* COPYING,
+	* ChangeLog,
+	* Makefile.am,
+	* NEWS,
+	* README,
+	* bootstrap.sh,
+	* clastannotation,
+	* clastannotation/Makefile.am,
+	* clastannotation/error.c,
+	* clastannotation/foo.c,
+	* clastannotation/include,
+	* clastannotation/include/clastannotation,
+	* clastannotation/include/clastannotation/common.h,
+	* clastannotation/include/clastannotation/error.h,
+	* clastannotation/include/clastannotation/foo.h,
+	* clastannotation/include/clastannotation/list.h,
+	* clastannotation/list.c,
+	* clastannotation/xmalloc.c,
+	* clastannotation/xstrdup.c,
+	* clastannotation/xstrerror.c,
+	* config,
+	* config/clastannotation.m4,
+	* configure.ac,
+	* doc,
+	* doc/Makefile.am,
+	* src,
+	* src/Makefile.am,
+	* src/clastannotation.c,
+	* src/clastannotation.h,
+	* tests,
+	* tests/Makefile.am,
+	* tests/checker.sh,
+	* tests/empty.test: Initial checkin of the project.
+

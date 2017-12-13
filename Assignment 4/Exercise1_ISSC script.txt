@@ -1,0 +1,72 @@
+#pragma scop
+# for (i = 0; i < _PB_NI; i++) {
+#   for (j = 0; j < _PB_NJ; j++)
+#R:   C[i][j] *= beta;
+#   for (k = 0; k < _PB_NK; k++) {
+#      for (j = 0; j < _PB_NJ; j++)
+#S:      C[i][j] += alpha * A[i][k] * B[k][j];
+#    }
+# }
+#pragma endscop
+print "***********************************************************************************************";
+#Exercise1: 
+#Question 1: Build the polyhedral representation (that is, write the ISCC script, as for assignment 2) of 
+#the kernel above, that is the iteration domain of each statement, and each access function. Count how 
+#many point are in each iteration domain.
+print "Iteration Domain of R";
+ID_R := [_PB_NI,_PB_NJ] -> {ID_R[i,j] : 0<=i<_PB_NI and 0<=j<_PB_NJ};
+ID_R;
+print "Cardinality of ID_R";
+card ID_R;
+print "Code for ID_R";
+codegen ID_R;
+print "Iteration Domain of S";
+ID_S := [_PB_NI,_PB_NK,_PB_NJ] -> {ID_S[i,k,j] : 0<=i<_PB_NI and 0<=k<_PB_NK and 0<=j<_PB_NJ};
+ID_S;
+print "Cardinality of ID_S";
+card ID_S;
+print "Code for ID_S";
+codegen ID_S;
+print "Access function of R";
+AF_RC := [_PB_NI,_PB_NJ] -> {ID_R[i,j] -> C[x][y] : x = i and y =j};
+AF_RC;
+print "Access function of S";
+AF_SC := [_PB_NI,_PB_NK,_PB_NJ] -> {ID_S[i,j,k] -> C[x][y] : x = i and y = j};
+AF_SC;
+AF_SA := [_PB_NI,_PB_NK,_PB_NJ] -> {ID_S[i,j,k] -> A[x][z] : x = i and z = k};
+AF_SA;
+AF_SB := [_PB_NI,_PB_NK,_PB_NJ] -> {ID_S[i,j,k] -> B[z][y] : z = k and y = j};
+AF_SB;
+print "***********************************************************************************************";
+#Exercise1:
+#Question 2: Compute the data space of the entire program using ISCC. Count how many points are in the 
+#data space.
+print "Data space of C";
+DS_C := AF_RC(ID_R) + AF_SC(ID_S);
+DS_C;
+print "Cardinality of DS_C";
+card DS_C;
+print "Code for DS_C";
+codegen DS_C;
+print "Data space of A";
+DS_A := AF_SA(ID_S);
+DS_A;
+print "Cardinality of DS_A";
+card DS_A;
+print "Code for DS_A";
+codegen DS_A;
+print "Data space of B";
+DS_B := AF_SB(ID_S);
+DS_B;
+print "Cardinality of DS_B";
+card DS_B;
+print "Code for DS_B";
+codegen DS_B;
+print "Dataspace of the entire kernel";
+DS := DS_A + DS_B + DS_C;
+DS;
+print "Cardinality of DS";
+card DS;
+print "Code for DS";
+codegen DS;
+print "***********************************************************************************************";

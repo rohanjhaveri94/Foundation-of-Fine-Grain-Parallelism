@@ -1,0 +1,20 @@
+To add new tests
+-----------------
+1. Add the C file (which is to be tested for parametrically tiled code)
+   X.c to source/ directory
+2. Create a file corresponding to the C file added in step 1, X.c.flags under source/ directory
+   which needs to have problem sizes and tile sizes passed as command line parameters specified in a line.
+   To test for multiple problem sizes and/or tile sizes, add as many lines in the X.c.flags file
+   e.g 
+    If problem size is N and the tile sizes are T1c1, T1c2 then add,
+   -DN=100 -DT1c1=100 -DT1c2=100
+   -DN=200 -DT1c1=5   -DT1c2=55
+
+
+Testing procedure
+------------------
+1. For the given problem size and tile sizes
+   a) The input progam is compiled using gcc with flag -O0 and the array is output
+   b) The ptile file is generated using the current installation and is also compiled with gcc -O0 and array is output
+   c) The outputs of the input program and generated files are compared. If they are the same, then the test passes
+      if not, the test fails.
